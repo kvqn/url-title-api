@@ -1,3 +1,4 @@
+import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
@@ -24,4 +25,12 @@ app.get("*", async (c) => {
   }
 });
 
-export default app;
+let port = parseInt(process.env.PORT);
+if (isNaN(port)) port = 3000;
+
+console.log(`Listening on port ${port}`);
+
+export default {
+  fetch: app.fetch,
+  port: port,
+};
