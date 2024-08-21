@@ -19,9 +19,17 @@ app.get("*", async (c) => {
     const url = new URL(requestedUrl);
     const html = await fetch(url.href).then((res) => res.text());
     const matches = html.match(/<title>(.*?)<\/title>/);
-    return c.text(matches?.[1] ?? "");
+    const title = matches?.[1] ?? "";
+    return c.json({
+      title: title,
+    });
   } catch (err) {
-    return c.text(`Error: ${err}`, 500);
+    return c.json(
+      {
+        error: error,
+      },
+      500
+    );
   }
 });
 
