@@ -26,9 +26,8 @@ app.get("*", async (c) => {
   } catch (err) {
     return c.json(
       {
-        error: error,
+        error: err,
       },
-      500
     );
   }
 });
